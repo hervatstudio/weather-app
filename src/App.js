@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Title from './components/Titles';
 import Form from './components/Form';
 import Weather from './components/Weather';
-import axios from 'axios';
+// import axios from 'axios';
+import { createStore } from 'redux';
+
 
 const API_KEY = "62f6c9fe05273f285ad08642409f5e2a";
 
@@ -49,6 +51,35 @@ class App extends Component {
 
   state = {  }
   render() { 
+    
+    const reducer = (state={},action) => {
+      if(action.type === 'A'){
+        return{
+          ...state,
+          A: 'I am A'
+        }
+      }
+      if(action.type === 'B'){
+        return{
+          ...state,
+          B: 'I am B'
+        }
+      }
+      return state
+    }
+
+    const store = createStore(reducer);
+
+    store.subscribe(()=>{
+      console.log(store.getState())
+    })
+
+    store.dispatch({type: 'A'})
+    store.dispatch({type: 'Something'})
+    store.dispatch({type: 'B'})
+    store.dispatch({type: 'Something'})
+
+
     return ( 
       <div>
         <Title/>

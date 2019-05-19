@@ -3,7 +3,10 @@ import Title from './components/Titles';
 import Form from './components/Form';
 import Weather from './components/Weather';
 // import axios from 'axios';
-import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import store from './store';
+import Count from './components/Count';
+import Users from './components/Users';
 
 
 const API_KEY = "62f6c9fe05273f285ad08642409f5e2a";
@@ -51,48 +54,72 @@ class App extends Component {
 
   state = {  }
   render() { 
-    
-    const reducer = (state={},action) => {
-      if(action.type === 'A'){
-        return{
-          ...state,
-          A: 'I am A'
-        }
-      }
-      if(action.type === 'B'){
-        return{
-          ...state,
-          B: 'I am B'
-        }
-      }
-      return state
-    }
 
-    const store = createStore(reducer);
+    // const reducer = (state={}, action) => {
+    //   if(action.type === 'A'){
+    //     return {
+    //       ...state,
+    //       A: 'I am A'
+    //     }
+    //   }
+    //   if(action.type === 'B'){
+    //     return {
+    //       ...state,
+    //       B: 'I am B'
+    //     }
+    //   }
+    //   return state
+    // }
 
-    store.subscribe(()=>{
-      console.log(store.getState())
-    })
+    // const store = createStore(reducer)
 
-    store.dispatch({type: 'A'})
-    store.dispatch({type: 'Something'})
-    store.dispatch({type: 'B'})
-    store.dispatch({type: 'Something'})
+    // // For data handeling
+    // store.subscribe(()=>{
+    //   console.log(store.getState().A);
+    // })
+
+    // store.subscribe(()=>{
+    //   console.log(store.getState().B);
+    // })
+
+    // // For event handeling
+    // store.dispatch({type: 'B'})
+    // store.dispatch({type: 'Something'})
+    // store.dispatch({type: 'A'})
+    // store.dispatch({type: 'Something'})
+
+    // Store (Object) -> Will hold all of our application data/state (Store can be only one for any React App)
+    // Reducer (Function (Pure function) return a Object) -> A function who returns a specific amount of state or data (Reducer can be multiple)
+    // Actions -> Event occurs -> { type: 'Something' payload: '' }
+    // Dispatch -> মানে হচ্ছে reducer কল হবে, এবং reducer এর মধ্যে কোন ডেটা Add, Edit, Update হবে এবং store এ গিয়ে হিট করবে
+    // Subscriber -> child component গুলো store এর সাথে subscribe করে রাখবে, dom event, action এর সাথে listener add করা
+
+    // Notes: Reducer state রিটার্ট করবে, current state, next state
+    // প্রতিবার কোন একশান হলে reducer ডেটা reduce/dispatch করে
 
 
-    return ( 
-      <div>
-        <Title/>
-        <Form getWeather={this.getWeather}/>
-        <Weather 
-          temperature={this.state.temperature}
-          city={this.state.city}
-          country={this.state.country}
-          humidity={this.state.humidity}
-          description={this.state.description}
-          error={this.state.error}
-        />
-      </div>
+    // React will be responsible for view layer
+    // Redux will be responsible for data layer
+    // React redux
+
+
+    return (
+      <Provider store={store}>
+        <div>
+          <Title/>
+          <Form getWeather={this.getWeather}/>
+          <Weather 
+            temperature={this.state.temperature}
+            city={this.state.city}
+            country={this.state.country}
+            humidity={this.state.humidity}
+            description={this.state.description}
+            error={this.state.error}
+          />
+          <Count/>
+          <Users/>
+        </div>
+      </Provider>
      );
   }
 }

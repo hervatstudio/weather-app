@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'; // Connect with redux by connect function
 
 class Users extends Component {
     state = {  }

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Count from './components/Count';
 import Users from './components/Users';
+import Control from './components/Control';
 
 
 const API_KEY = "62f6c9fe05273f285ad08642409f5e2a";
@@ -117,7 +118,8 @@ class App extends Component {
             error={this.state.error}
           />
           <Count/>
-          <Users/>
+          <Control/>
+          {/* <Users/> */}
         </div>
       </Provider>
      );

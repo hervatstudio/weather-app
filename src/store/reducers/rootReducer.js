@@ -10,7 +10,25 @@ const initState = {
 }
 
 function rootReducer(state=initState, action){
-    return initState
+    
+    switch(action.type){
+
+        case 'ADD':{
+            return{
+                count: state.count + 1
+            }
+        }
+
+        case 'SUB':{
+            return{
+                count: state.count - 1
+            }
+        }
+        default: return state
+    }
+
+
+    // return initState
 }
 
 export default rootReducer;
